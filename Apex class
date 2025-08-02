@@ -1,0 +1,44 @@
+public class Contactclass {
+    
+    public static void checkifconexists(List<contact>newcontacts){
+         //genereate key to check phone , email and lastname
+        list<contact>existingkeys=new list<contact>();
+        list<string>newkeys=new list<string>();
+        for(Contact con : newcontacts){  
+            string key= generatekey(con);
+            if(newkeys.contains(key)){
+                 
+            }
+            else{
+             newkeys.add(key);
+            }
+        }
+        list<contact>oldcon=[select phone,email,lastname from contact limit 50000];
+        
+        List<string>oldkeys=new List<string>();
+        
+        for(contact oldcontact:oldcon){
+                 string check=generatekey(oldcontact);
+                 oldkeys.add(check); 
+        }
+        
+        for(contact c : newcontacts){
+            string s = generatekey(c);
+            if(oldkeys.contains(s)){
+                c.adderror('contact already exists');
+            }
+        }
+        
+    }
+    
+     public static string generatekey(contact c){
+            string key;
+            string email=(c.email!=null)?c.email.trim().tolowercase():'null';
+            string phone=(c.phone!=null)?c.phone.trim().tolowercase():'null';
+            string lastname=(c.lastname!=null)?c.lastname.trim().tolowercase():'null';
+            system.debug('checking key: : : : '+ email+':'+phone+':'+lastname);
+            return email+':'+phone+':'+lastname;
+        }
+        
+
+}
