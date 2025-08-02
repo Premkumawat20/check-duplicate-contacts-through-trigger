@@ -1,0 +1,9 @@
+trigger contact on Contact (after update , before insert){
+   
+    if(Trigger.isinsert && Trigger.isbefore){
+        system.debug('checking insert trigger'); 
+        Contactclass.checkifconexists(Trigger.new);
+        
+    }
+
+}
